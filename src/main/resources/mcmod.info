@@ -1,0 +1,16 @@
+[
+{
+  "modid": "aspecttweaker",
+  "name": "Aspect Tweaker",
+  "description": "Minetweaker add-on for changing Thaumcraft aspects",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["asanetargoss"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
