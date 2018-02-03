@@ -32,7 +32,7 @@ print((<aspect:terra>*687).amount);
 
 # Developing
 ## Dependencies
-Download the normal/obfuscated 1.10.2 versions of these mods and put them in /libs:
+Download the normal/obfuscated 1.10.2 versions of these mods and put them in the /libs folder relative to the root directory, creating the folder if it does not exist:
 
 * [CraftTweaker](https://minecraft.curseforge.com/projects/crafttweaker)
 * [Thaumcraft](https://minecraft.curseforge.com/projects/thaumcraft?gameCategorySlug=mc-mods&projectID=223628)
