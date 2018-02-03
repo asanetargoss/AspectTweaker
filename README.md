@@ -32,9 +32,13 @@ print((<aspect:terra>*687).amount);
 
 # Developing
 ## Dependencies
-Download the normal/obfuscated 1.10.2 versions of these mods (available from Curseforge) and put them in /libs:
+Download the normal/obfuscated 1.10.2 versions of these mods and put them in /libs:
 
-CraftTweaker, Thaumcraft 6, Baubles, CodeChickenCore, CodeChickenLib
+* [CraftTweaker](https://minecraft.curseforge.com/projects/crafttweaker)
+* [Thaumcraft](https://minecraft.curseforge.com/projects/thaumcraft?gameCategorySlug=mc-mods&projectID=223628)
+* [Baubles](https://minecraft.curseforge.com/projects/baubles?gameCategorySlug=mc-mods&projectID=227083)
+* [CodeChicken Core](https://minecraft.curseforge.com/projects/codechicken-core-1-8?gameCategorySlug=mc-mods&projectID=243822)
+* [CodeChickenLib](https://minecraft.curseforge.com/projects/codechicken-lib-1-8)
 
 ## Setup
 * Call "./gradlew setupDecompWorkspace" from command line in root directory
