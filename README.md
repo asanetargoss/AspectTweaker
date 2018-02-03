@@ -32,7 +32,7 @@ print((<aspect:terra>*687).amount);
 
 # Developing
 ## Dependencies
-Download the normal/obfuscated versions of these mods (available from Curseforge) and put them in /libs:
+Download the normal/obfuscated 1.10.2 versions of these mods (available from Curseforge) and put them in /libs:
 
 CraftTweaker, Thaumcraft 6, Baubles, CodeChickenCore, CodeChickenLib
 
@@ -41,7 +41,7 @@ CraftTweaker, Thaumcraft 6, Baubles, CodeChickenCore, CodeChickenLib
 * Call "./gradlew eclipse" (or equivalent for idea) from command line in root directory
 
 ## Running
-The CraftTweaker mcp mappings are old which can lead to crashes, so you must remove/disable scripts when entering a world and then use "/minetweaker reload" with the scripts re-enabled. Also, don't craft things.
+The CraftTweaker mcp mappings are old which can lead to crashes in a 1.10.2 development workspace, so you must remove/disable scripts when entering a world and then use "/minetweaker reload" with the scripts re-enabled. Also, don't craft things.
 
 ## Compiling
-" Call ./gradlew assemble" from command line in root directory, and fetch output from build/libs
+Call "./gradlew assemble" from command line in root directory, and fetch output from build/libs
