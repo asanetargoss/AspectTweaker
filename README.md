@@ -28,6 +28,13 @@ for primal in primals {
 // <aspect:terra>.amount gives 1, and so on
 print("A lot of terra:");
 print((<aspect:terra>*687).amount);
+
+// New in 0.2.0: Merge two arrays of aspects into one
+val merged = Aspects.merge([<aspect:terra>*2,<aspect:ignis>], [<aspect:terra>,<aspect:tenebrae>]);
+print("3 Terra, plus Ignis and Tenebrae:");
+for aspect in merged {
+    print(aspect.name + ": " + aspect.amount);
+}
 ```
 
 # Developing

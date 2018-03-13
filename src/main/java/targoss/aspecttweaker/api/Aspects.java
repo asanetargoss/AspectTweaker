@@ -23,6 +23,7 @@
  */
 package targoss.aspecttweaker.api;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
 @ZenClass("aspecttweaker.Aspects")
@@ -54,6 +56,37 @@ public class Aspects {
 			throw new IllegalArgumentException("The aspect must be an instance of IIngredient");
 		}
 		MineTweakerAPI.apply(new ChangeItemAspectsAction((IItemStack)ingredient, new IAspect[0]));
+	}
+	
+	@ZenMethod
+	public static IAspect[] merge(IAspect[] aspects1, IAspect[] aspects2) {
+		LinkedHashMap<Aspect, Integer> aspectsSoFar = new LinkedHashMap<Aspect, Integer>();
+		for (IAspect iAspect : aspects1) {
+			Aspect aspect = iAspect.getAspect();
+			if (aspectsSoFar.containsKey(aspect)) {
+				aspectsSoFar.put(aspect, aspectsSoFar.get(aspect) + iAspect.getAmount());
+			}
+			else {
+				aspectsSoFar.put(aspect, iAspect.getAmount());
+			}
+		}
+		for (IAspect iAspect : aspects2) {
+			Aspect aspect = iAspect.getAspect();
+			if (aspectsSoFar.containsKey(aspect)) {
+				aspectsSoFar.put(aspect, aspectsSoFar.get(aspect) + iAspect.getAmount());
+			}
+			else {
+				aspectsSoFar.put(aspect, iAspect.getAmount());
+			}
+		}
+		
+		IAspect[] merged = new IAspect[aspectsSoFar.size()];
+		int i = 0;
+		for (Map.Entry<Aspect, Integer> aspectEntry : aspectsSoFar.entrySet()) {
+			merged[i++] = new TCAspect(aspectEntry.getKey(), aspectEntry.getValue());
+		}
+		
+		return merged;
 	}
 	
 	public static void clearAppliedActions() {
