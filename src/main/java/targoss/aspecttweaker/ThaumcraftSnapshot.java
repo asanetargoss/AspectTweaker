@@ -27,7 +27,9 @@ import java.util.Map;
 
 import thaumcraft.api.aspects.AspectList;
 
+// A partial snapshot of the original state of CommonInternals, before AspectTweaker modifies it.
 public class ThaumcraftSnapshot {
 	public static Map<String, AspectList> objectTags;
 	public static Map<String, int[]> groupedObjectTags;
+	public static Map<String, Object> craftingRecipeCatalog;
 }

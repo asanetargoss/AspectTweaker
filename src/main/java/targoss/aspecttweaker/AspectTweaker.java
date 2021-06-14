@@ -42,6 +42,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import targoss.aspecttweaker.api.AspectBracketHandler;
 import targoss.aspecttweaker.api.Aspects;
 import targoss.aspecttweaker.api.IAspect;
+import targoss.aspecttweaker.api.RecipeExamples;
 import targoss.aspecttweaker.api.TCAspect;
 import targoss.aspecttweaker.event.ErrorTrackingLogger;
 import targoss.aspecttweaker.event.EventFiringTweaker;
@@ -66,9 +67,14 @@ public class AspectTweaker
     	LOGGER = event.getModLog();
     	
     	// Annotated classes need to be manually registered
+    	// Interfaces
     	MineTweakerAPI.registerClass(IAspect.class);
+    	// Implementations
     	MineTweakerAPI.registerClass(TCAspect.class);
+    	// Static class utilities
     	MineTweakerAPI.registerClass(Aspects.class);
+        MineTweakerAPI.registerClass(RecipeExamples.class);
+        // Bracket handlers
     	MineTweakerAPI.registerClass(AspectBracketHandler.class);
     }
     
@@ -93,7 +99,7 @@ public class AspectTweaker
     public void onTweakerLoadPre(TweakerLoadEvent.Pre event) {
     	LoadState.errorLogged = false;
     	
-    	// Get what the aspect maps look like before
+    	// Get what the aspect maps/recipe catalog look like before
     	if (LoadState.firstLoad) {
     		LoadState.firstLoad = false;
     		
@@ -104,15 +110,23 @@ public class AspectTweaker
     		Map<String, int[]> groupedObjectTags = new HashMap<String, int[]>();
     		groupedObjectTags.putAll(CommonInternals.groupedObjectTags);
     		ThaumcraftSnapshot.groupedObjectTags = groupedObjectTags;
+    		
+    		HashMap<String, Object> craftingRecipeCatalog = new HashMap<String, Object>();
+    		craftingRecipeCatalog.putAll(CommonInternals.craftingRecipeCatalog);
+    		ThaumcraftSnapshot.craftingRecipeCatalog = craftingRecipeCatalog;
     	}
 
     	// Clears actions in preparation for them to be added by scripts
     	Aspects.clearAppliedActions();
+    	RecipeExamples.clearAppliedActions();
     }
     
     @SubscribeEvent
     public void onTweakerLoadPost(TweakerLoadEvent.Post event) {
+        // We will work with our own copy of the maps, to reduce issues with things being overridden
+        // Set the maps initially to the defaults provided by the snapshot
 		updateThaumcraftAspects();
+		updateRecipeExamples();
     }
     
     /** With the map of changed aspects and changed recipes from the
@@ -121,8 +135,6 @@ public class AspectTweaker
 	 * on top of it.
 	 */
     public static void updateThaumcraftAspects() {
-    	// Work with our own copy of the maps, to reduce issues with things being overridden
-    	// Set the maps initially to the defaults provided by the snapshot
     	ConcurrentHashMap<String, AspectList> objectTags = new ConcurrentHashMap<String, AspectList>();
     	objectTags.putAll(ThaumcraftSnapshot.objectTags);
     	/* Honestly, I have no idea what groupedObjectTags should be
@@ -138,5 +150,16 @@ public class AspectTweaker
     	// We're done; install the new mappings
     	CommonInternals.objectTags = objectTags;
     	CommonInternals.groupedObjectTags = groupedObjectTags;
+    }
+    
+    public static void updateRecipeExamples() {
+        HashMap<String, Object> craftingRecipeCatalog = new HashMap<String, Object>();
+        craftingRecipeCatalog.putAll(ThaumcraftSnapshot.craftingRecipeCatalog);
+        
+        // Apply new aspect changes on top of the initial snapshot
+        RecipeExamples.applyToCraftingRecipeCatalog(craftingRecipeCatalog);
+        
+        // We're done; install the new mappings
+        CommonInternals.craftingRecipeCatalog = craftingRecipeCatalog;
     }
 }
