@@ -44,7 +44,7 @@ public class Aspects {
 	public static void setAspects(IIngredient ingredient, IAspect[] aspects) {
 		//TODO: Add oredict support
 		if (!(ingredient instanceof IItemStack)) {
-			throw new IllegalArgumentException("The aspect must be an instance of IIngredient");
+			throw new IllegalArgumentException("The object to set aspects on must be an IItemStack");
 		}
 		MineTweakerAPI.apply(new ChangeItemAspectsAction((IItemStack)ingredient, aspects));
 	}
@@ -53,7 +53,7 @@ public class Aspects {
 	public static void removeAspects(IIngredient ingredient) {
 		//TODO: Add oredict support
 		if (!(ingredient instanceof IItemStack)) {
-			throw new IllegalArgumentException("The aspect must be an instance of IIngredient");
+			throw new IllegalArgumentException("The object to remove aspects from must be an instance of IItemStack");
 		}
 		MineTweakerAPI.apply(new ChangeItemAspectsAction((IItemStack)ingredient, new IAspect[0]));
 	}
