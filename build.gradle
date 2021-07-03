@@ -15,6 +15,8 @@ version = "0.1.0"
 group= "targoss.aspecttweaker" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "aspecttweaker"
 
+String coremodPath="targoss.aspecttweaker.coremod.AspectTweakerCoremod"
+
 sourceCompatibility = targetCompatibility = "1.6" // Need this here so eclipse task generates correctly.
 compileJava {
     sourceCompatibility = targetCompatibility = "1.6"
@@ -31,6 +33,10 @@ minecraft {
     // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "snapshot_20161111"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    // These arguments let us load the coremod properly when testing in a dev environment
+    clientJvmArgs = ["-Dfml.coreMods.load=" + coremodPath]
+    serverJvmArgs = ["-Dfml.coreMods.load=" + coremodPath]
 }
 
 dependencies {
@@ -74,5 +80,15 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes (
+            // Add coremod info to mod jar manifest
+            'FMLCorePlugin': coremodPath,
+            'FMLCorePluginContainsFMLMod': 'true'
+        )
     }
 }

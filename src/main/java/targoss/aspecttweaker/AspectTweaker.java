@@ -46,6 +46,7 @@ import targoss.aspecttweaker.api.Aspects;
 import targoss.aspecttweaker.api.IAspect;
 import targoss.aspecttweaker.api.RecipeExamples;
 import targoss.aspecttweaker.api.TCAspect;
+import targoss.aspecttweaker.coremod.AspectTweakerCoremod;
 import targoss.aspecttweaker.event.ErrorTrackingLogger;
 import targoss.aspecttweaker.event.EventFiringTweaker;
 import targoss.aspecttweaker.event.TweakerLoadEvent;
@@ -66,6 +67,12 @@ public class AspectTweaker
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        if (!AspectTweakerCoremod.isCoremodInitialized()){
+            throw new ModStateException("The coremod at '" +
+                    AspectTweakerCoremod.class.getName() +
+                    "' did not run");
+        }
+        
     	MinecraftForge.EVENT_BUS.register(this);
     	LOGGER = event.getModLog();
     	
