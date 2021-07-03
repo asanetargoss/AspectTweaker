@@ -23,6 +23,7 @@
  */
 package targoss.aspecttweaker;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ import org.apache.logging.log4j.Logger;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -47,6 +49,7 @@ import targoss.aspecttweaker.api.TCAspect;
 import targoss.aspecttweaker.event.ErrorTrackingLogger;
 import targoss.aspecttweaker.event.EventFiringTweaker;
 import targoss.aspecttweaker.event.TweakerLoadEvent;
+import targoss.aspecttweaker.wrapper.JsonLocsWrapper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.internal.CommonInternals;
 
@@ -76,6 +79,13 @@ public class AspectTweaker
         MineTweakerAPI.registerClass(RecipeExamples.class);
         // Bracket handlers
     	MineTweakerAPI.registerClass(AspectBracketHandler.class);
+    	
+    	// Override jsonLocs so `/tc reload` also checks our custom folder location
+    	HashMap<String, ResourceLocation> oldJsonLocs = CommonInternals.jsonLocs;
+    	JsonLocsWrapper newJsonLocs = new JsonLocsWrapper();
+    	newJsonLocs.researchOverrideJsonDir = new File(new File(new File(event.getModConfigurationDirectory(), MODID), "overrides"), "research");
+    	CommonInternals.jsonLocs = newJsonLocs;
+    	CommonInternals.jsonLocs.putAll(oldJsonLocs);
     }
     
     @EventHandler
