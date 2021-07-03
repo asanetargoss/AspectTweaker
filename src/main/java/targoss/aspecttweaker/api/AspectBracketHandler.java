@@ -36,7 +36,6 @@ import stanhebben.zenscript.symbols.IZenSymbol;
 import stanhebben.zenscript.type.natives.IJavaMethod;
 import stanhebben.zenscript.type.natives.JavaMethod;
 import stanhebben.zenscript.util.ZenPosition;
-import targoss.aspecttweaker.AspectTweaker;
 import thaumcraft.api.aspects.Aspect;
 
 @BracketHandler
