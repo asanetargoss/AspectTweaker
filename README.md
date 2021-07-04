@@ -2,12 +2,13 @@
 
 Aspect Tweaker is a CraftTweaker add-on for Minecraft 1.10.2 and Thaumcraft 6.
 
-Its main features are:
+The mod allows you to:
 
-- Adding/removing aspects from items/blocks (aspects for ore dictionaries is not implemented)
-- Modifying recipe examples in the Thaumonomicon for shaped/shapeless crafting table recipes
-- Overriding the Thaumcraft research tree
-- Fixes an item meta crafting bug with cauldrons
+- Add/remove aspects from items/blocks (aspects on ore dictionaries is not implemented)
+- Modify recipe examples in the Thaumonomicon for shaped/shapeless crafting table recipes
+- Override the Thaumcraft research tree
+
+In addition, the mod also fixes an item meta crafting bug with cauldrons.
 
 ## CraftTweaker Usage
 
